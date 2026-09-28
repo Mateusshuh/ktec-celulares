@@ -215,8 +215,28 @@ section[id] { scroll-margin-top: var(--header-h); }
   background: radial-gradient(60% 55% at 50% 55%, color-mix(in srgb, var(--c, #3dcc3d) 28%, transparent), transparent 75%), var(--surface-2);
   transition: background .4s;
 }
-.card-media .ph { width: 76%; height: 76%; margin-top: 18px; object-fit: contain; filter: drop-shadow(0 18px 24px rgba(0, 0, 0, .5)); transition: transform .5s cubic-bezier(.2, .8, .2, 1), opacity .25s; }
-.card:hover .card-media .ph { transform: scale(1.04); }
+.card-photos { position: absolute; inset: 0; display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.card-photos::-webkit-scrollbar { display: none; }
+.card-photos img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; scroll-snap-align: start; }
+.card-nophoto { width: 34%; height: 34%; color: var(--dim); stroke-width: 1.2; }
+.photo-nav {
+  position: absolute; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; border-radius: 50%; border: 0; cursor: pointer;
+  background: rgba(17, 18, 20, .7); color: var(--text); font: 700 20px/1 var(--font-display); display: grid; place-items: center; opacity: 0; transition: opacity .2s;
+}
+.photo-nav.prev { left: 10px; }
+.photo-nav.next { right: 10px; }
+.card:hover .photo-nav, .photo-nav:focus-visible { opacity: 1; }
+.photo-count { position: absolute; right: 12px; bottom: 12px; padding: 4px 9px; border-radius: 999px; background: rgba(17, 18, 20, .7); font: 700 11px/1 var(--font-display); }
+.badge.badge-city { left: auto; right: 14px; display: inline-flex; align-items: center; gap: 4px; }
+.badge-city .i { width: 12px; height: 12px; }
+.badge.warn { background: #f2b33d; border-color: #f2b33d; color: #1d1402; }
+.card-defeito { font-size: 13.5px; color: #f2c46b; }
+.card-defeito b { font-weight: 700; }
+.card-desc { font-size: 13.5px; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.filters-sub { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: -16px; }
+.filter-group { display: flex; flex-wrap: wrap; gap: 6px; }
+.filters-sub .filter { height: 34px; padding: 0 14px; font-size: 13px; }
+.vitrine-status { padding: 40px 20px; border: 1px dashed var(--line-2); border-radius: var(--radius-lg); text-align: center; color: var(--muted); }
 .badge {
   position: absolute; top: 14px; left: 14px; padding: 6px 11px; border-radius: 999px;
   font: 800 11px/1 var(--font-display); letter-spacing: .08em; text-transform: uppercase;
@@ -267,8 +287,13 @@ section[id] { scroll-margin-top: var(--header-h); }
 .contact-list .i { width: 46px; height: 46px; padding: 12px; border-radius: 14px; background: var(--green-soft); color: var(--green); }
 .contact-list svg.i use[href="#i-wa"] { color: var(--green); }
 .contact-list b { display: block; font-family: var(--font-display); font-weight: 800; }
+.contact-list a:hover b { color: var(--green); }
 .contact-list span { color: var(--muted); font-size: 14px; }
-.map { border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--line); min-height: 380px; background: var(--surface); }
+.map { position: relative; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--line); min-height: 380px; background: var(--surface); }
+.map-tabs { position: absolute; z-index: 1; top: 14px; left: 14px; display: flex; gap: 4px; padding: 4px; border-radius: 999px; background: rgba(17, 18, 20, .85); border: 1px solid var(--line-2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.map-tab { height: 36px; padding: 0 16px; border: 0; border-radius: 999px; background: none; cursor: pointer; font: 700 13px/1 var(--font-display); color: var(--muted); transition: all .2s; }
+.map-tab:hover { color: var(--text); }
+.map-tab.is-on { background: var(--green); color: var(--green-ink); }
 .map iframe { width: 100%; height: 100%; min-height: 380px; border: 0; display: block; filter: invert(.92) hue-rotate(180deg) saturate(.6) brightness(.95); }
 
 /* Rodapé */
@@ -292,7 +317,6 @@ section[id] { scroll-margin-top: var(--header-h); }
 /* Revelar ao rolar */
 .reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s cubic-bezier(.2, .8, .2, 1), transform .8s cubic-bezier(.2, .8, .2, 1); }
 .reveal.in { opacity: 1; transform: none; }
-
 
 
 /* ---------- Responsivo ---------- */

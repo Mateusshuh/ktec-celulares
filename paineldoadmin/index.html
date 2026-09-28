@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Painel · KTEC Celulares</title>
+  <meta name="theme-color" content="#111214">
+  <link rel="icon" href="/favicon.ico?v=2" sizes="48x48">
+  <link rel="icon" href="/assets/favicon.svg?v=2" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Montserrat:ital,wght@0,600;0,700;0,800;0,900;1,800;1,900&display=swap" rel="stylesheet">
+  <!-- caminhos absolutos: a página abre em /paineldoadmin (sem barra no fim) -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/paineldoadmin/admin.css">
+</head>
+<body class="adm">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="k-mark" viewBox="0 0 244 192">
+      <path d="M48 8H95L78 93L183 8H230L101 112L193 183H145L71 126L60 183H13Z" fill="none" stroke="#3dcc3d" stroke-width="15" stroke-linejoin="miter" stroke-miterlimit="12"/>
+      <path d="M48 8H95L78 93L183 8H230L101 112L193 183H145L71 126L60 183H13Z" fill="none" stroke="#111214" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="12"/>
+    </symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.8"/><path d="M10.5 5h3"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></symbol>
+  </svg>
+
+  <!-- Sem configuração do Supabase -->
+  <main class="adm-center" id="tela-config" hidden>
+    <div class="adm-card">
+      <h1>Painel ainda não configurado</h1>
+      <p>Preencha o endereço e a chave do Supabase em <code>js/config.js</code> e publique o site de novo. O passo a passo está no <code>README.md</code>.</p>
+    </div>
+  </main>
+
+  <!-- Login -->
+  <main class="adm-center" id="tela-login" hidden>
+    <form class="adm-card" id="form-login">
+      <div class="adm-brand">
+        <svg viewBox="0 0 244 192" aria-hidden="true"><use href="#k-mark"/></svg>
+        <span><b>KTEC</b> Painel</span>
+      </div>
+      <h1>Entrar</h1>
+      <label class="fld"><span>E-mail</span><input type="email" name="email" autocomplete="username" required></label>
+      <label class="fld"><span>Senha</span><input type="password" name="senha" autocomplete="current-password" required></label>
+      <p class="adm-erro" id="login-erro" role="alert" hidden></p>
+      <button class="btn btn-green" type="submit">Entrar</button>
+    </form>
+  </main>
+
+  <!-- Painel -->
+  <div id="tela-painel" hidden>
+    <header class="adm-top">
+      <div class="adm-brand">
+        <svg viewBox="0 0 244 192" aria-hidden="true"><use href="#k-mark"/></svg>
+        <span><b>KTEC</b> Painel</span>
+      </div>
+      <span class="adm-user" id="usuario"></span>
+      <a class="btn btn-ghost btn-sm" href="/" target="_blank" rel="noopener">Ver site</a>
+      <button class="btn btn-ghost btn-sm" id="sair" type="button">Sair</button>
+    </header>
+
+    <nav class="adm-tabs" role="tablist" aria-label="Seções do painel">
+      <button role="tab" id="tab-produtos" aria-controls="aba-produtos" data-aba="produtos">Produtos</button>
+      <button role="tab" id="tab-cadastrar" aria-controls="aba-cadastrar" data-aba="cadastrar">Cadastrar</button>
+      <button role="tab" id="tab-fotos" aria-controls="aba-fotos" data-aba="fotos">Fotos</button>
+    </nav>
+
+    <!-- Aba: lista de produtos -->
+    <section class="adm-aba" id="aba-produtos" role="tabpanel" aria-labelledby="tab-produtos" hidden>
+      <div class="adm-toolbar">
+        <input type="search" id="busca" placeholder="Buscar pelo nome" aria-label="Buscar pelo nome">
+        <select id="filtro-categoria" aria-label="Filtrar por categoria"><option value="">Todas as categorias</option></select>
+        <select id="filtro-cidade" aria-label="Filtrar por cidade"><option value="">Todas as cidades</option></select>
+        <button class="btn btn-green btn-sm" type="button" data-ir="cadastrar">+ Novo produto</button>
+      </div>
+      <p class="adm-contagem" id="contagem"></p>
+      <div class="adm-lista" id="lista"></div>
+    </section>
+
+    <!-- Aba: cadastrar / editar -->
+    <section class="adm-aba" id="aba-cadastrar" role="tabpanel" aria-labelledby="tab-cadastrar" hidden>
+      <form class="adm-form" id="form-produto" novalidate>
+        <div class="adm-form-head">
+          <h1 id="form-titulo">Cadastrar produto</h1>
+          <button class="btn btn-ghost btn-sm" type="button" id="form-cancelar" hidden>Cancelar edição</button>
+        </div>
+
+        <fieldset class="fld">
+          <legend>Categoria</legend>
+          <div class="chips" id="op-categoria"></div>
+        </fieldset>
+
+        <label class="fld"><span>Nome do produto</span>
+          <input name="nome" required maxlength="120" placeholder="Ex.: iPhone 15 Pro Max, Redmi Note 13, JBL Flip 6">
+        </label>
+
+        <div class="fld-row">
+          <fieldset class="fld">
+            <legend>Condição</legend>
+            <div class="chips" id="op-condicao"></div>
+          </fieldset>
+          <fieldset class="fld">
+            <legend>Cidade</legend>
+            <div class="chips" id="op-cidade"></div>
+          </fieldset>
+        </div>
+
+        <div class="fld-row">
+          <label class="fld" data-so="celular"><span>Armazenamento</span><input name="capacidade" maxlength="40" placeholder="Ex.: 128 GB"></label>
+          <label class="fld"><span>Cor</span><input name="cor" maxlength="40" placeholder="Ex.: Preto"></label>
+          <label class="fld" data-so="bateria"><span>Saúde da bateria (%)</span><input name="bateria" type="number" min="0" max="100" inputmode="numeric" placeholder="Ex.: 89"></label>
+        </div>
+
+        <label class="fld" data-so="defeito"><span>Qual o problema?</span>
+          <textarea name="defeito" rows="2" maxlength="400" placeholder="Ex.: tela trincada no canto, Face ID não funciona"></textarea>
+        </label>
+
+        <label class="fld"><span>Descrição <small>(opcional)</small></span>
+          <textarea name="descricao" rows="3" maxlength="800" placeholder="Detalhes que aparecem no site: acessórios inclusos, garantia, estado da carcaça…"></textarea>
+        </label>
+
+        <div class="fld-row">
+          <label class="fld"><span>Preço <small>(vazio = "Consulte o valor")</small></span><input name="preco" inputmode="decimal" placeholder="Ex.: 3.499,90"></label>
+          <label class="fld fld-check"><input type="checkbox" name="visivel" checked><span>Mostrar no site</span></label>
+        </div>
+
+        <fieldset class="fld">
+          <legend>Fotos <small>(a primeira é a capa)</small></legend>
+          <div class="fotos-editor" id="fotos-form"></div>
+        </fieldset>
+
+        <p class="adm-erro" id="form-erro" role="alert" hidden></p>
+        <div class="adm-form-foot">
+          <button class="btn btn-green" type="submit" id="form-salvar">Salvar produto</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Aba: fotos -->
+    <section class="adm-aba" id="aba-fotos" role="tabpanel" aria-labelledby="tab-fotos" hidden>
+      <div class="adm-form">
+        <h1>Fotos dos produtos</h1>
+        <label class="fld"><span>Produto</span>
+          <select id="fotos-produto"><option value="">Escolha um produto</option></select>
+        </label>
+        <div class="fotos-editor" id="fotos-aba" hidden></div>
+        <p class="adm-erro" id="fotos-erro" role="alert" hidden></p>
+        <div class="adm-form-foot" id="fotos-acoes" hidden>
+          <span class="adm-pendente" id="fotos-pendente" hidden>Alterações não salvas</span>
+          <button class="btn btn-green" type="button" id="fotos-salvar">Salvar fotos</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="adm-toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="/js/config.js"></script>
+  <script type="module" src="/paineldoadmin/admin.js"></script>
+</body>
+</html>

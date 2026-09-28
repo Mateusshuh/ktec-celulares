@@ -260,7 +260,7 @@
       blob(w, h * 0.3, w * 0.9, 'rgba(120,40,60,.8)');
       blob(w * 0.5, h * 0.55, w * 0.6, 'rgba(61,204,61,.25)');
       ctx.textAlign = 'center';
-      ctx.fillStyle = 'rgba(255,255,255,.85)'; ctx.font = '600 36px Manrope, sans-serif'; ctx.fillText('Ijuí · RS', w / 2, 250);
+      ctx.fillStyle = 'rgba(255,255,255,.85)'; ctx.font = '600 36px Manrope, sans-serif'; ctx.fillText('Ijuí · Cruz Alta', w / 2, 250);
       ctx.fillStyle = '#fff'; ctx.font = '700 200px Montserrat, sans-serif'; ctx.fillText('9:41', w / 2, 440);
       const s = 1.7; ctx.save(); ctx.translate(w / 2 - 122 * s, h * 0.52 - 96 * s); ctx.scale(s, s);
       const p = new Path2D(K_PATH); ctx.lineJoin = 'miter'; ctx.miterLimit = 12;

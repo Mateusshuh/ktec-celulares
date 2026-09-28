@@ -3,26 +3,29 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>KTEC Celulares · iPhone 18 em Ijuí</title>
-  <meta name="description" content="Lançamento: o iPhone 18 já está na KTEC Celulares, em Ijuí/RS. iPhones novos, seminovos e toda linha Apple, com parcelamento em até 21x e assistência técnica especializada.">
+  <title>KTEC Celulares · iPhone 18 em Ijuí e Cruz Alta</title>
+  <meta name="description" content="Lançamento: o iPhone 18 já está na KTEC Celulares, em Ijuí e Cruz Alta/RS. iPhones novos, seminovos e toda linha Apple, com parcelamento em até 21x e assistência técnica especializada.">
   <meta name="theme-color" content="#111214">
   <meta property="og:type" content="website">
   <meta property="og:title" content="KTEC Celulares · iPhone 18 já na loja">
-  <meta property="og:description" content="iPhones novos, seminovos e toda linha Apple em Ijuí/RS. Parcele em até 21x.">
+  <meta property="og:description" content="iPhones novos, seminovos e toda linha Apple em Ijuí e Cruz Alta/RS. Parcele em até 21x.">
   <meta property="og:image" content="assets/iphone.png">
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.ico?v=2" sizes="48x48">
+  <link rel="icon" href="assets/favicon.svg?v=2" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon-32.png?v=2" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Montserrat:ital,wght@0,500;0,600;0,700;0,800;0,900;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="assets/iphone.png">
   <link rel="stylesheet" href="css/style.css">
   <script type="application/ld+json">
-    {
+    [{
       "@context": "https://schema.org",
       "@type": "MobilePhoneStore",
-      "name": "KTEC Celulares",
+      "name": "KTEC Celulares Ijuí",
       "description": "Loja e assistência de celulares: iPhones novos, seminovos e toda linha Apple.",
-      "telephone": "+55 55 99177-8500",
+      "telephone": "+55 55 9146-1164",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Rua Bento Gonçalves, 366 - Sala 8",
@@ -31,7 +34,21 @@
         "addressCountry": "BR"
       },
       "sameAs": ["https://www.instagram.com/ktecijui/", "https://www.facebook.com/ktecijui/"]
-    }
+    }, {
+      "@context": "https://schema.org",
+      "@type": "MobilePhoneStore",
+      "name": "KTEC Celulares Cruz Alta",
+      "description": "Loja e assistência de celulares: iPhones novos, seminovos e toda linha Apple.",
+      "telephone": "+55 55 9201-3728",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Rua Pinheiro Machado, 686 - Centro",
+        "addressLocality": "Cruz Alta",
+        "addressRegion": "RS",
+        "addressCountry": "BR"
+      },
+      "sameAs": ["https://www.instagram.com/ktecijui/", "https://www.facebook.com/ktecijui/"]
+    }]
   </script>
 </head>
 <body>
@@ -85,7 +102,7 @@
         <div class="hero-copy" data-in="0" data-out="0.045">
           <p class="launch-pill"><span class="pulse" aria-hidden="true"></span> Lançamento · já disponível na loja</p>
           <h1>iPhone 18 Pro.<br><em>Chegou na KTEC.</em></h1>
-          <p class="hero-sub">O iPhone mais novo da Apple já está em Ijuí. Venha conhecer na loja ou garanta o seu pelo WhatsApp, em até <strong>21x no cartão</strong>.</p>
+          <p class="hero-sub">O iPhone mais novo da Apple já está em Ijuí e Cruz Alta. Venha conhecer na loja ou garanta o seu pelo WhatsApp, em até <strong>21x no cartão</strong>.</p>
           <div class="hero-actions">
             <a class="btn btn-green" data-wa="Olá, KTEC! Quero garantir meu iPhone 18. Quais modelos, cores e condições vocês têm?">Quero meu iPhone 18</a>
             <a class="btn btn-ghost" href="#produtos">Ver todos os modelos</a>
@@ -161,16 +178,34 @@
       <div class="container">
         <header class="section-head reveal">
           <p class="eyebrow">Vitrine</p>
-          <h2>iPhones e Apple, <em>prontos pra levar.</em></h2>
-          <p class="lead">Escolha o modelo e a cor e chame a gente no WhatsApp para ver valores, fotos reais e condições de pagamento.</p>
+          <h2>iPhones, Xiaomi e acessórios, <em>prontos pra levar.</em></h2>
+          <p class="lead">iPhones, Xiaomi, JBL, capinhas, películas e carregadores em Ijuí e Cruz Alta. Escolha o produto e chame a gente no WhatsApp para ver valores e condições de pagamento.</p>
         </header>
 
-        <div class="filters reveal" role="group" aria-label="Filtrar produtos">
-          <button class="filter is-on" data-filter="todos" aria-pressed="true">Todos</button>
-          <button class="filter" data-filter="novo" aria-pressed="false">Novos</button>
-          <button class="filter" data-filter="seminovo" aria-pressed="false">Seminovos</button>
+        <div class="filters reveal" role="group" aria-label="Filtrar por tipo">
+          <button class="filter is-on" data-grupo="categoria" data-valor="todos" aria-pressed="true">Todos</button>
+          <button class="filter" data-grupo="categoria" data-valor="iphone" aria-pressed="false">iPhones</button>
+          <button class="filter" data-grupo="categoria" data-valor="xiaomi" aria-pressed="false">Xiaomi</button>
+          <button class="filter" data-grupo="categoria" data-valor="jbl" aria-pressed="false">JBL</button>
+          <button class="filter" data-grupo="categoria" data-valor="capinha" aria-pressed="false">Capinhas</button>
+          <button class="filter" data-grupo="categoria" data-valor="pelicula" aria-pressed="false">Películas</button>
+          <button class="filter" data-grupo="categoria" data-valor="carregador" aria-pressed="false">Carregadores</button>
+        </div>
+        <div class="filters filters-sub reveal">
+          <div class="filter-group" role="group" aria-label="Filtrar por condição">
+            <button class="filter is-on" data-grupo="condicao" data-valor="todos" aria-pressed="true">Qualquer condição</button>
+            <button class="filter" data-grupo="condicao" data-valor="novo" aria-pressed="false">Novos</button>
+            <button class="filter" data-grupo="condicao" data-valor="seminovo" aria-pressed="false">Seminovos</button>
+            <button class="filter" data-grupo="condicao" data-valor="com_defeito" aria-pressed="false">Com defeito</button>
+          </div>
+          <div class="filter-group" role="group" aria-label="Filtrar por cidade">
+            <button class="filter is-on" data-grupo="cidade" data-valor="todos" aria-pressed="true">Todas as cidades</button>
+            <button class="filter" data-grupo="cidade" data-valor="Ijuí" aria-pressed="false">Ijuí</button>
+            <button class="filter" data-grupo="cidade" data-valor="Cruz Alta" aria-pressed="false">Cruz Alta</button>
+          </div>
         </div>
 
+        <p class="vitrine-status" id="vitrine-status" role="status" hidden></p>
         <div class="grid-products" id="grid-produtos"></div>
 
         <p class="grid-note">Não achou o modelo que procura? <a data-wa="Olá, KTEC! Estou procurando um modelo que não vi no site. Vocês têm?">Chama no WhatsApp</a> que a gente verifica pra você.</p>
@@ -239,11 +274,13 @@
     <section class="section" id="contato">
       <div class="container contact">
         <div class="contact-card reveal">
-          <p class="eyebrow">Visite a loja</p>
-          <h2>KTEC <em>Ijuí</em></h2>
+          <p class="eyebrow">Visite nossas lojas</p>
+          <h2>KTEC <em>Ijuí e Cruz Alta</em></h2>
           <ul class="contact-list">
             <li><svg class="i" viewBox="0 0 24 24"><use href="#i-pin"/></svg><div><b data-loja="endereco"></b><span data-loja="cidade"></span></div></li>
-            <li><svg class="i" viewBox="0 0 24 24"><use href="#i-wa"/></svg><div><b data-loja="whatsappExibicao"></b><span>WhatsApp</span></div></li>
+            <li><svg class="i" viewBox="0 0 24 24"><use href="#i-wa"/></svg><div><a data-wa="Olá, KTEC Ijuí! Vim pelo site." data-cidade="Ijuí"><b data-loja="whatsappExibicao"></b></a><span>WhatsApp Ijuí</span></div></li>
+            <li><svg class="i" viewBox="0 0 24 24"><use href="#i-pin"/></svg><div><b data-loja="enderecoCruzAlta"></b><span data-loja="cidadeCruzAlta"></span></div></li>
+            <li><svg class="i" viewBox="0 0 24 24"><use href="#i-wa"/></svg><div><a data-wa="Olá, KTEC Cruz Alta! Vim pelo site." data-cidade="Cruz Alta"><b data-loja="whatsappCruzAltaExibicao"></b></a><span>WhatsApp Cruz Alta</span></div></li>
             <li><svg class="i" viewBox="0 0 24 24"><use href="#i-insta"/></svg><div><b>@<span data-loja="instagram"></span></b><span>Instagram</span></div></li>
           </ul>
           <div class="hero-actions">
@@ -252,6 +289,10 @@
           </div>
         </div>
         <div class="map reveal">
+          <div class="map-tabs" role="group" aria-label="Loja no mapa">
+            <button class="map-tab is-on" type="button" data-mapa="Ijuí" aria-pressed="true">Ijuí</button>
+            <button class="map-tab" type="button" data-mapa="Cruz Alta" aria-pressed="false">Cruz Alta</button>
+          </div>
           <iframe id="mapa" title="Mapa da KTEC Celulares em Ijuí" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
@@ -264,13 +305,13 @@
         <svg class="brand-mark" viewBox="0 0 244 192" aria-hidden="true"><use href="#k-mark"/></svg>
         <span class="brand-word"><span class="brand-ktec"><b>K</b>TEC</span><small>CELULARES</small></span>
       </a>
-      <p class="footer-text">Loja e assistência de celulares em Ijuí/RS. iPhones novos, seminovos e toda linha Apple.</p>
+      <p class="footer-text">Loja e assistência de celulares em Ijuí e Cruz Alta/RS. iPhones novos, seminovos e toda linha Apple.</p>
       <nav class="footer-nav" aria-label="Rodapé">
         <a href="#produtos">Produtos</a><a href="#seminovos">Seminovos</a><a href="#assistencia">Assistência</a><a href="#contato">Contato</a>
       </nav>
     </div>
     <div class="container footer-legal">
-      <p>© <span id="ano"></span> KTEC Venda e Assistência Técnica Ltda · Ijuí/RS</p>
+      <p>© <span id="ano"></span> KTEC Venda e Assistência Técnica Ltda · Ijuí e Cruz Alta/RS</p>
       <p>Apple, iPhone, AirPods e Apple Watch são marcas registradas da Apple Inc.</p>
     </div>
   </footer>
@@ -297,6 +338,7 @@
     <symbol id="i-insta" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></symbol>
   </svg>
 
+  <script src="js/config.js"></script>
   <script src="js/dados.js"></script>
   <script src="js/site.js"></script>
   <script src="js/teardown.js"></script>
