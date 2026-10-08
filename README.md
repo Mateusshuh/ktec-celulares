@@ -1,8 +1,8 @@
 # KTEC Celulares
 
-Site da KTEC, loja e assistência de celulares em Ijuí e Cruz Alta/RS: lançamento do iPhone 18 Pro, vitrine de produtos, assistência técnica e contato.
-
-No topo, o iPhone da foto se desmonta peça por peça conforme a página é rolada e se monta de novo ao voltar para o topo.
+Site da KTEC, loja e assistência de celulares em Ijuí e Cruz Alta/RS: página única com as categorias
+(iPhones, Xiaomi, JBL e áudio, acessórios e assistência técnica), vitrine de produtos, depoimentos e contato.
+No ar em https://www.kteccelulares.com.br
 
 ## Rodar localmente
 
@@ -42,9 +42,13 @@ Para dar acesso a outra pessoa, repita os passos 3 e 4 com o e-mail dela.
 - `paineldoadmin/`: painel do administrador (login, cadastro de produtos e fotos)
 - `supabase/setup.sql`: banco de dados e regras de acesso do painel
 - `js/config.js`: conexão com o Supabase
-- `js/dados.js`: WhatsApp, endereço e Instagram da loja
-- `js/site.js`: vitrine (lê os produtos cadastrados no painel), filtros e menu
-- `js/teardown.js`: animação do iPhone desmontando (abra o site com `?debug` para ver os recortes sobre a foto)
-- `css/style.css`: cores e estilos
+- `index.html`: textos e seções do site
+- `js/dados.js`: WhatsApp, endereços, Instagram, CNPJ e parcelamento
+- `js/site.js`: vitrine (lê os produtos cadastrados no painel), filtros, menu e links de WhatsApp
+- `css/site.css`: cores e estilos do site
+- `css/style.css`: base de cores, fontes e botões usada pelo painel do administrador (mudanças aqui alteram o visual do painel)
+- `IMAGENS.md`: fotos do site, com nome, pasta e tamanho
 
-Apple, iPhone e as imagens dos produtos são marcas e propriedade da Apple Inc.
+A vitrine também abre já filtrada pelo endereço, por exemplo `/?categoria=xiaomi&cidade=Cruz%20Alta#vitrine`.
+
+Apple, iPhone, AirPods e Apple Watch são marcas registradas da Apple Inc.

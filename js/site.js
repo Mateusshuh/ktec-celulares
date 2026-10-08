@@ -12,22 +12,38 @@
 
   // ---------- Dados da loja no HTML
   $$('[data-loja]').forEach((el) => { el.textContent = loja[el.dataset.loja] ?? ''; });
-  const insta = $('#link-insta');
-  if (insta) insta.href = `https://www.instagram.com/${loja.instagram}/`;
-  const mapa = $('#mapa');
+  $$('[data-insta]').forEach((a) => { a.href = `https://www.instagram.com/${loja.instagram}/`; });
   const enderecos = { 'Ijuí': loja.mapa, 'Cruz Alta': loja.mapaCruzAlta };
-  function mostrarMapa(cidade) {
-    mapa.src = `https://maps.google.com/maps?q=${encodeURIComponent(enderecos[cidade])}&z=16&output=embed`;
-    mapa.title = `Mapa da KTEC Celulares em ${cidade}`;
-    $$('.map-tab').forEach((b) => { const on = b.dataset.mapa === cidade; b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', on); });
-  }
-  if (mapa) {
-    mostrarMapa('Ijuí');
-    $$('.map-tab').forEach((b) => b.addEventListener('click', () => mostrarMapa(b.dataset.mapa)));
-  }
+  $$('iframe[data-mapa]').forEach((f) => {
+    f.src = `https://maps.google.com/maps?q=${encodeURIComponent(enderecos[f.dataset.mapa])}&z=16&output=embed`;
+  });
   $('#ano').textContent = new Date().getFullYear();
 
-  // ---------- Vitrine (produtos cadastrados no painel /paineldoadmin)
+  // ---------- Fotos que ainda não existem: mostra o aviso do placeholder no lugar
+  $$('.ph img, .avatar img').forEach((img) => {
+    const ph = img.closest('.ph, .avatar');
+    const falhou = () => { img.hidden = true; ph.classList.add('is-empty'); };
+    const carregou = () => ph.classList.add('is-loaded');
+    if (img.complete && img.getAttribute('src')) (img.naturalWidth ? carregou : falhou)();
+    img.addEventListener('error', falhou);
+    img.addEventListener('load', carregou);
+  });
+
+  // ---------- Links de WhatsApp
+  $$('[data-wa]').forEach((a) => setWa(a, a.dataset.wa || 'Olá, KTEC! Vim pelo site.', a.dataset.cidade));
+
+  // Botões gerais: perguntam com qual loja falar
+  const dialog = $('#wa-dialog');
+  const escolher = (msg) => {
+    $$('[data-wa-loja]', dialog).forEach((a) => setWa(a, msg, a.dataset.waLoja));
+    if (typeof dialog.showModal === 'function') dialog.showModal();
+    else window.open(waLink(msg), '_blank', 'noopener');
+  };
+  $$('[data-wa-escolher]').forEach((b) => b.addEventListener('click', () => escolher(b.dataset.waEscolher)));
+  $$('[data-wa-loja]', dialog).forEach((a) => a.addEventListener('click', () => dialog.close()));
+  dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
+
+  // ---------- Vitrine (produtos cadastrados no painel do administrador)
   const grid = $('#grid-produtos');
   const status = $('#vitrine-status');
   const labelCond = { novo: 'Novo', seminovo: 'Seminovo', com_defeito: 'Com defeito' };
@@ -35,6 +51,7 @@
   const fotoUrl = (path) => `${db.url}/storage/v1/object/public/produtos/${path.split('/').map(encodeURIComponent).join('/')}`;
   const filtro = { categoria: 'todos', condicao: 'todos', cidade: 'todos' };
   let produtos = [];
+  let carregado = false;
 
   function setStatus(msg) {
     status.textContent = msg;
@@ -48,8 +65,8 @@
       ? `${fmt(p.preco)}<small>ou em até ${loja.parcelas}x no cartão</small>`
       : `Consulte o valor<small>em até ${loja.parcelas}x no cartão</small>`;
     const media = fotos.length
-      ? `<div class="card-photos">${fotos.map((f, i) => `<img src="${esc(fotoUrl(f))}" alt="${esc(p.nome)}, foto ${i + 1} de ${fotos.length}" loading="lazy" decoding="async">`).join('')}</div>
-         ${fotos.length > 1 ? `<button class="photo-nav prev" aria-label="Foto anterior">‹</button><button class="photo-nav next" aria-label="Próxima foto">›</button><span class="photo-count">1/${fotos.length}</span>` : ''}`
+      ? `<div class="card-photos">${fotos.map((f, i) => `<img src="${esc(fotoUrl(f))}" alt="${esc(p.nome)}, foto ${i + 1} de ${fotos.length}" width="800" height="800" loading="lazy" decoding="async">`).join('')}</div>
+         ${fotos.length > 1 ? `<button class="photo-nav prev" type="button" aria-label="Foto anterior">‹</button><button class="photo-nav next" type="button" aria-label="Próxima foto">›</button><span class="photo-count">1/${fotos.length}</span>` : ''}`
       : `<svg class="i card-nophoto" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-phone"/></svg>`;
     return `
       <div class="card-media">
@@ -70,6 +87,7 @@
   }
 
   function render() {
+    if (!carregado) return;
     const lista = produtos.filter((p) =>
       (filtro.categoria === 'todos' || p.categoria === filtro.categoria)
       && (filtro.condicao === 'todos' || p.condicao === filtro.condicao)
@@ -77,7 +95,7 @@
 
     grid.replaceChildren();
     if (!produtos.length) return setStatus('Nenhum produto cadastrado no momento. Chama a gente no WhatsApp que a gente te mostra o que tem na loja.');
-    if (!lista.length) return setStatus('Nenhum produto com esses filtros agora.');
+    if (!lista.length) return setStatus('Nenhum produto com esses filtros agora. Chama a gente no WhatsApp que a gente verifica pra você.');
     setStatus('');
 
     lista.forEach((p) => {
@@ -107,6 +125,7 @@
       const res = await fetch(`${db.url}/rest/v1/produtos?select=*&visivel=eq.true&order=criado_em.desc`, { headers: { apikey: db.chave } });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       produtos = await res.json();
+      carregado = true;
       render();
     } catch (err) {
       console.error('Vitrine:', err);
@@ -114,41 +133,62 @@
     }
   }
 
-  // ---------- Filtros (tipo, condição e cidade)
+  // ---------- Filtros (categoria, condição e cidade)
   const filters = $$('.filter');
-  function applyFilter(grupo, valor) {
+  function marcar(grupo, valor) {
     filtro[grupo] = valor;
     filters.filter((b) => b.dataset.grupo === grupo).forEach((b) => {
       const on = b.dataset.valor === valor;
       b.classList.toggle('is-on', on);
       b.setAttribute('aria-pressed', on);
     });
+  }
+  filters.forEach((b) => b.addEventListener('click', () => { marcar(b.dataset.grupo, b.dataset.valor); render(); }));
+
+  // "Ver na vitrine": aplica os filtros do bloco (ex.: data-ver="categoria=iphone&condicao=novo")
+  function aplicarFiltros(params) {
+    Object.keys(filtro).forEach((g) => marcar(g, params.get(g) || 'todos'));
     render();
   }
-  filters.forEach((b) => b.addEventListener('click', () => applyFilter(b.dataset.grupo, b.dataset.valor)));
-  $$('[data-filter-link]').forEach((a) => a.addEventListener('click', () => {
-    applyFilter('categoria', 'todos');
-    applyFilter('condicao', a.dataset.filterLink);
-  }));
+  $$('[data-ver]').forEach((a) => a.addEventListener('click', () => aplicarFiltros(new URLSearchParams(a.dataset.ver))));
+  // Também aceita os filtros no endereço: ?categoria=xiaomi&cidade=Cruz%20Alta#vitrine
+  aplicarFiltros(new URLSearchParams(location.search));
 
   carregarProdutos();
 
-  // ---------- Links de WhatsApp
-  $$('[data-wa]').forEach((a) => setWa(a, a.dataset.wa || 'Olá, KTEC! Vim pelo site.', a.dataset.cidade));
-
-  // ---------- Topo e menu
+  // ---------- Menu
   const topbar = $('.topbar');
-  const onScroll = () => topbar.classList.toggle('scrolled', scrollY > 20);
+  const onScroll = () => topbar.classList.toggle('scrolled', scrollY > 10);
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
   const menuBtn = $('.menu-btn');
-  const menu = $('#menu-mobile');
-  const setMenu = (open) => { menu.hidden = !open; menuBtn.setAttribute('aria-expanded', open); topbar.classList.toggle('scrolled', open || scrollY > 20); };
-  menuBtn.addEventListener('click', () => setMenu(menu.hidden));
+  const menu = $('#menu');
+  const setMenu = (open) => {
+    topbar.classList.toggle('menu-open', open);
+    menuBtn.setAttribute('aria-expanded', open);
+    menuBtn.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+  };
+  menuBtn.addEventListener('click', () => setMenu(menuBtn.getAttribute('aria-expanded') !== 'true'));
   $$('a', menu).forEach((a) => a.addEventListener('click', () => setMenu(false)));
+  addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && topbar.classList.contains('menu-open')) { setMenu(false); menuBtn.focus(); }
+  });
 
-  // ---------- Revelar ao rolar
+  // Destaca no menu a seção visível
+  const navLinks = $$('a', menu).filter((a) => !a.dataset.ver); // Seminovos abre a vitrine filtrada, não é uma seção
+  // Observa também as seções fora do menu (vitrine, depoimentos…), para o destaque sumir nelas
+  const alvo = [...new Set([...navLinks.map((a) => $(a.getAttribute('href'))), ...$$('main > section[id]')])].filter(Boolean);
+  const navIo = new IntersectionObserver((entries) => entries.forEach((e) => {
+    if (!e.isIntersecting) return;
+    navLinks.forEach((a) => {
+      if (a.getAttribute('href') === `#${e.target.id}`) a.setAttribute('aria-current', 'location');
+      else a.removeAttribute('aria-current');
+    });
+  }), { rootMargin: '-45% 0px -50% 0px' });
+  alvo.forEach((s) => navIo.observe(s));
+
+  // ---------- Revelar ao rolar (desligado com prefers-reduced-motion, no CSS)
   const io = new IntersectionObserver((entries) => entries.forEach((e) => {
     if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
   }), { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
