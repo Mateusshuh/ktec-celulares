@@ -189,7 +189,8 @@
   alvo.forEach((s) => navIo.observe(s));
 
   // ---------- Antes e depois: a seção fica presa na tela e a rolagem empurra a galeria para o lado
-  // A altura da seção = quanto a faixa precisa andar, então 1px rolado = 1px para o lado.
+  // A altura da seção = quanto a faixa precisa andar × RITMO: com RITMO 2, é preciso rolar 2px para a faixa andar 1px.
+  const RITMO = 2;
   const reparos = $('.repairs');
   if (reparos && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const faixa = $('.repairs-track', reparos);
@@ -210,7 +211,7 @@
     const medir = () => {
       faixa.style.removeProperty('--x');
       curso = Math.max(0, faixa.scrollWidth - innerWidth);
-      reparos.style.height = `${curso + innerHeight}px`;
+      reparos.style.height = `${curso * RITMO + innerHeight}px`;
       centros = fotos.map((f) => f.offsetLeft + f.offsetWidth / 2);
     };
 

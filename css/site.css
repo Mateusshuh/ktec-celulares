@@ -237,9 +237,9 @@ strong { color: var(--text); }
    Com .is-motion (js/site.js): a seção fica presa na tela e a rolagem empurra a faixa para o lado;
    cada foto cresce ao chegar no centro (--d = distância até o centro, de -1 a 1). */
 .repairs { --edge: max(var(--gutter), (100% - var(--maxw)) / 2); --card-h: min(62svh, 540px); position: relative; }
-.repairs-sticky { position: relative; isolation: isolate; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(24px, 3vw, 36px); }
-.repairs-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 48px; }
-.repairs h2 { margin-top: 18px; }
+.repairs-sticky { position: relative; isolation: isolate; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(16px, 2vw, 24px); }
+.repairs-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 48px; }
+.repairs h2 { margin-top: 12px; }
 .repairs-lead { color: var(--muted); font-size: clamp(16px, 1.3vw, 18px); max-width: 32ch; }
 .repairs-marquee {
   position: absolute; left: 0; top: 50%; z-index: -1; white-space: nowrap; pointer-events: none;
@@ -273,24 +273,25 @@ strong { color: var(--text); }
 
 .is-motion .repairs-sticky {
   position: sticky; top: 0; height: 100vh; height: 100svh;
-  align-content: center; padding: calc(var(--header-h) + 8px) 0 20px;
+  align-content: center; padding: calc(var(--header-h) + 4px) 0 12px;
 }
 .is-motion .repairs-track { overflow: visible; scroll-snap-type: none; width: max-content; will-change: transform; transform: translate3d(var(--x, 0px), 0, 0); }
 .is-motion .repair-shot {
   transform: scale(calc(1 - var(--a, 0) * .12)); opacity: calc(1 - var(--a, 0) * .45);
   transition: border-color .4s;
 }
-.is-motion .repair-shot img { transform: translate3d(calc(var(--d, 0) * -7%), 0, 0) scale(1.16); }
+.is-motion .repair-shot img { transform: translate3d(calc(var(--d, 0) * -7%), 0, 0) scale(1.24); }
 .is-motion .repairs-foot { display: block; }
 .repairs-progress { display: block; height: 3px; border-radius: 3px; background: var(--line-2); overflow: hidden; }
 .repairs-progress span { display: block; height: 100%; background: var(--green); transform-origin: left; transform: scaleX(var(--p, 0)); }
 @media (max-width: 899px) {
-  .repairs { --card-h: min(100svh - var(--header-h) - 290px, 112vw, 520px); }
+  .repairs { --card-h: min(100svh - var(--header-h) - 240px, 128vw, 620px); }
   .is-motion .repairs-lead { display: none; }
-  .repairs h2 { font-size: clamp(28px, 8vw, 44px); }
+  .repairs h2 { font-size: clamp(26px, 7.4vw, 40px); }
 }
 @media (min-width: 900px) {
-  .repairs { --card-h: min(100svh - var(--header-h) - 320px, 540px); }
+  .repairs { --card-h: min(100svh - var(--header-h) - 230px, 700px); }
+  .repairs h2 { font-size: clamp(30px, 3.4vw, 48px); }
 }
 
 .group-cta {
