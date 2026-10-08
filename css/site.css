@@ -198,7 +198,7 @@ strong { color: var(--text); }
 .section { padding: var(--space) 0; position: relative; }
 .section-tight { padding: clamp(56px, 8vw, 96px) 0; }
 .section-alt { background: var(--bg-2); }
-.section h2, .block h2, .band-title {
+.section h2, .block h2, .repairs h2, .band-title {
   font-weight: 900; text-transform: uppercase; letter-spacing: -.01em; font-size: clamp(30px, 4.6vw, 60px);
 }
 .section-head { max-width: 780px; margin-bottom: clamp(40px, 6vw, 72px); }
@@ -231,6 +231,67 @@ strong { color: var(--text); }
 }
 .tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .tags li { padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line-2); font: 600 13px/1 var(--font-display); color: var(--text); }
+
+/* ---------- 4b. Antes e depois dos consertos ----------
+   Sem JS (ou com movimento reduzido): faixa de fotos que se arrasta para o lado.
+   Com .is-motion (js/site.js): a seção fica presa na tela e a rolagem empurra a faixa para o lado;
+   cada foto cresce ao chegar no centro (--d = distância até o centro, de -1 a 1). */
+.repairs { --edge: max(var(--gutter), (100% - var(--maxw)) / 2); --card-h: min(62svh, 540px); position: relative; }
+.repairs-sticky { position: relative; isolation: isolate; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(24px, 3vw, 36px); }
+.repairs-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 48px; }
+.repairs h2 { margin-top: 18px; }
+.repairs-lead { color: var(--muted); font-size: clamp(16px, 1.3vw, 18px); max-width: 32ch; }
+.repairs-marquee {
+  position: absolute; left: 0; top: 50%; z-index: -1; white-space: nowrap; pointer-events: none;
+  font: 900 clamp(90px, 16vw, 240px)/1 var(--font-display); text-transform: uppercase; letter-spacing: -.02em;
+  color: transparent; -webkit-text-stroke: 1px rgba(255, 255, 255, .09);
+  transform: translate3d(calc(var(--p, 0) * -40%), -50%, 0);
+}
+.repairs-marquee span { -webkit-text-stroke-color: rgba(61, 204, 61, .22); }
+
+.repairs-track {
+  display: flex; align-items: flex-start; gap: clamp(28px, 5vw, 72px);
+  padding: 4px var(--edge) 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+}
+.repairs-track::-webkit-scrollbar { display: none; }
+.repair { flex: none; display: grid; gap: 16px; scroll-snap-align: center; }
+.repair-media { display: flex; gap: 10px; }
+.repair-shot {
+  position: relative; flex: none; height: var(--card-h); aspect-ratio: 3 / 4; overflow: hidden;
+  border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--line);
+}
+.repair-shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.repair-tag {
+  position: absolute; top: 14px; left: 14px; padding: 7px 12px; border-radius: 999px;
+  font: 800 11px/1 var(--font-display); letter-spacing: .14em; text-transform: uppercase;
+  background: rgba(17, 18, 20, .78); border: 1px solid var(--line-2); color: var(--text);
+}
+.repair-depois .repair-tag { background: var(--green); border-color: var(--green); color: var(--green-ink); }
+.repair figcaption { display: grid; gap: 2px; color: var(--muted); font-size: 15px; max-width: 40ch; }
+.repair figcaption b { font: 800 17px/1.25 var(--font-display); text-transform: uppercase; color: var(--text); }
+.repairs-foot { display: none; }
+
+.is-motion .repairs-sticky {
+  position: sticky; top: 0; height: 100vh; height: 100svh;
+  align-content: center; padding: calc(var(--header-h) + 8px) 0 20px;
+}
+.is-motion .repairs-track { overflow: visible; scroll-snap-type: none; width: max-content; will-change: transform; transform: translate3d(var(--x, 0px), 0, 0); }
+.is-motion .repair-shot {
+  transform: scale(calc(1 - var(--a, 0) * .12)); opacity: calc(1 - var(--a, 0) * .45);
+  transition: border-color .4s;
+}
+.is-motion .repair-shot img { transform: translate3d(calc(var(--d, 0) * -7%), 0, 0) scale(1.16); }
+.is-motion .repairs-foot { display: block; }
+.repairs-progress { display: block; height: 3px; border-radius: 3px; background: var(--line-2); overflow: hidden; }
+.repairs-progress span { display: block; height: 100%; background: var(--green); transform-origin: left; transform: scaleX(var(--p, 0)); }
+@media (max-width: 899px) {
+  .repairs { --card-h: min(100svh - var(--header-h) - 290px, 112vw, 520px); }
+  .is-motion .repairs-lead { display: none; }
+  .repairs h2 { font-size: clamp(28px, 8vw, 44px); }
+}
+@media (min-width: 900px) {
+  .repairs { --card-h: min(100svh - var(--header-h) - 320px, 540px); }
+}
 
 .group-cta {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px;

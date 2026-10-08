@@ -188,6 +188,52 @@
   }), { rootMargin: '-45% 0px -50% 0px' });
   alvo.forEach((s) => navIo.observe(s));
 
+  // ---------- Antes e depois: a seção fica presa na tela e a rolagem empurra a galeria para o lado
+  // A altura da seção = quanto a faixa precisa andar, então 1px rolado = 1px para o lado.
+  const reparos = $('.repairs');
+  if (reparos && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const faixa = $('.repairs-track', reparos);
+    const fotos = $$('.repair-shot', reparos);
+    const lim = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+    reparos.classList.add('is-motion');
+
+    // As fotos ficam fora da tela até a faixa andar: carrega todas quando a seção se aproxima
+    const preIo = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      $$('img', reparos).forEach((img) => { img.loading = 'eager'; });
+      preIo.disconnect();
+    }, { rootMargin: '800px 0px' });
+    preIo.observe(reparos);
+
+    let curso = 0;
+    let centros = [];
+    const medir = () => {
+      faixa.style.removeProperty('--x');
+      curso = Math.max(0, faixa.scrollWidth - innerWidth);
+      reparos.style.height = `${curso + innerHeight}px`;
+      centros = fotos.map((f) => f.offsetLeft + f.offsetWidth / 2);
+    };
+
+    let pedido = false;
+    const atualizar = () => {
+      pedido = false;
+      const p = lim(-reparos.getBoundingClientRect().top / Math.max(1, reparos.offsetHeight - innerHeight));
+      const x = p * curso;
+      faixa.style.setProperty('--x', `${-x}px`);
+      reparos.style.setProperty('--p', p.toFixed(4));
+      fotos.forEach((f, i) => {
+        const d = lim((centros[i] - x - innerWidth / 2) / innerWidth, -1, 1);
+        f.style.setProperty('--d', d.toFixed(4));
+        f.style.setProperty('--a', Math.abs(d).toFixed(4));
+      });
+    };
+    const pedir = () => { if (!pedido) { pedido = true; requestAnimationFrame(atualizar); } };
+    addEventListener('scroll', pedir, { passive: true });
+    addEventListener('resize', () => { medir(); pedir(); });
+    medir();
+    atualizar();
+  }
+
   // ---------- Revelar ao rolar (desligado com prefers-reduced-motion, no CSS)
   const io = new IntersectionObserver((entries) => entries.forEach((e) => {
     if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
