@@ -5,14 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>KTEC Celulares · iPhone, Xiaomi, JBL e assistência em Ijuí e Cruz Alta</title>
   <meta name="description" content="KTEC Celulares em Ijuí e Cruz Alta/RS: iPhones novos e seminovos, Xiaomi, JBL, capinhas, películas, carregadores e assistência técnica. Parcelamento em até 21x no cartão.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://www.kteccelulares.com.br/">
   <meta name="theme-color" content="#111214">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:site_name" content="KTEC Celulares">
+  <meta property="og:url" content="https://www.kteccelulares.com.br/">
   <meta property="og:title" content="KTEC Celulares · Ijuí e Cruz Alta">
   <meta property="og:description" content="iPhones novos e seminovos, Xiaomi, JBL, acessórios e assistência técnica em Ijuí e Cruz Alta/RS. Parcele em até 21x.">
-  <meta property="og:url" content="https://www.kteccelulares.com.br/">
   <meta property="og:image" content="https://www.kteccelulares.com.br/assets/equipe.jpg">
+  <meta property="og:image:width" content="720">
+  <meta property="og:image:height" content="1280">
+  <meta property="og:image:alt" content="Equipe da KTEC Celulares em frente à loja">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="favicon.ico?v=2" sizes="48x48">
   <link rel="icon" href="assets/favicon.svg?v=2" type="image/svg+xml">
@@ -24,38 +29,63 @@
   <link rel="stylesheet" href="css/site.css">
   <script>document.documentElement.classList.add('js');</script>
   <script type="application/ld+json">
-    [{
+    {
       "@context": "https://schema.org",
-      "@type": "MobilePhoneStore",
-      "name": "KTEC Celulares Ijuí",
-      "legalName": "KTEC Venda e Assistência Técnica Ltda",
-      "taxID": "48.245.082/0001-60",
-      "description": "Loja e assistência de celulares: iPhones novos e seminovos, Xiaomi, JBL e acessórios.",
-      "telephone": "+55 55 9146-1164",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Rua Bento Gonçalves, 366 - Sala 8",
-        "addressLocality": "Ijuí",
-        "addressRegion": "RS",
-        "postalCode": "98700-136",
-        "addressCountry": "BR"
-      },
-      "sameAs": ["https://www.instagram.com/ktecijui/", "https://www.facebook.com/ktecijui/"]
-    }, {
-      "@context": "https://schema.org",
-      "@type": "MobilePhoneStore",
-      "name": "KTEC Celulares Cruz Alta",
-      "description": "Loja e assistência de celulares: iPhones novos e seminovos, Xiaomi, JBL e acessórios.",
-      "telephone": "+55 55 9201-3728",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Rua Pinheiro Machado, 686 - Centro",
-        "addressLocality": "Cruz Alta",
-        "addressRegion": "RS",
-        "addressCountry": "BR"
-      },
-      "sameAs": ["https://www.instagram.com/ktecijui/", "https://www.facebook.com/ktecijui/"]
-    }]
+      "@graph": [{
+        "@type": "WebSite",
+        "@id": "https://www.kteccelulares.com.br/#site",
+        "url": "https://www.kteccelulares.com.br/",
+        "name": "KTEC Celulares",
+        "alternateName": ["KTEC", "KTEC Ijuí", "KTEC Cruz Alta"],
+        "inLanguage": "pt-BR",
+        "publisher": { "@id": "https://www.kteccelulares.com.br/#empresa" }
+      }, {
+        "@type": "Organization",
+        "@id": "https://www.kteccelulares.com.br/#empresa",
+        "name": "KTEC Celulares",
+        "legalName": "KTEC Venda e Assistência Técnica Ltda",
+        "taxID": "48.245.082/0001-60",
+        "url": "https://www.kteccelulares.com.br/",
+        "logo": "https://www.kteccelulares.com.br/assets/apple-touch-icon.png",
+        "image": "https://www.kteccelulares.com.br/assets/img/hero.jpg",
+        "sameAs": ["https://www.instagram.com/ktecijui/", "https://www.facebook.com/ktecijui/"]
+      }, {
+        "@type": "MobilePhoneStore",
+        "@id": "https://www.kteccelulares.com.br/#loja-ijui",
+        "name": "KTEC Celulares Ijuí",
+        "description": "Loja e assistência de celulares: iPhones novos e seminovos, Xiaomi, JBL e acessórios.",
+        "url": "https://www.kteccelulares.com.br/",
+        "image": "https://www.kteccelulares.com.br/assets/img/hero.jpg",
+        "telephone": "+55 55 9146-1164",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Rua Bento Gonçalves, 366 - Sala 8",
+          "addressLocality": "Ijuí",
+          "addressRegion": "RS",
+          "postalCode": "98700-136",
+          "addressCountry": "BR"
+        },
+        "parentOrganization": { "@id": "https://www.kteccelulares.com.br/#empresa" },
+        "sameAs": ["https://www.instagram.com/ktecijui/", "https://www.facebook.com/ktecijui/"]
+      }, {
+        "@type": "MobilePhoneStore",
+        "@id": "https://www.kteccelulares.com.br/#loja-cruz-alta",
+        "name": "KTEC Celulares Cruz Alta",
+        "description": "Loja e assistência de celulares: iPhones novos e seminovos, Xiaomi, JBL e acessórios.",
+        "url": "https://www.kteccelulares.com.br/",
+        "image": "https://www.kteccelulares.com.br/assets/img/hero.jpg",
+        "telephone": "+55 55 9201-3728",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Rua Pinheiro Machado, 686 - Centro",
+          "addressLocality": "Cruz Alta",
+          "addressRegion": "RS",
+          "addressCountry": "BR"
+        },
+        "parentOrganization": { "@id": "https://www.kteccelulares.com.br/#empresa" },
+        "sameAs": ["https://www.instagram.com/ktecijui/", "https://www.facebook.com/ktecijui/"]
+      }]
+    }
   </script>
 </head>
 <body>
@@ -361,8 +391,8 @@
           <article class="store reveal" aria-labelledby="loja-ijui">
             <h3 id="loja-ijui">KTEC Ijuí</h3>
             <ul class="contact-list">
-              <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pin"/></svg><div><b data-loja="endereco"></b><span data-loja="cidade"></span></div></li>
-              <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg><div><a data-wa="Olá, KTEC Ijuí! Vim pelo site." data-cidade="Ijuí"><b data-loja="whatsappExibicao"></b></a><span>WhatsApp Ijuí</span></div></li>
+              <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pin"/></svg><div><b data-loja="endereco">Rua Bento Gonçalves, 366 · Sala 8</b><span data-loja="cidade">Centro · Ijuí · RS · 98700-136</span></div></li>
+              <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg><div><a href="https://wa.me/555591461164" data-wa="Olá, KTEC Ijuí! Vim pelo site." data-cidade="Ijuí"><b data-loja="whatsappExibicao">(55) 9146-1164</b></a><span>WhatsApp Ijuí</span></div></li>
             </ul>
             <div class="map"><iframe data-mapa="Ijuí" title="Mapa da KTEC Celulares em Ijuí" loading="lazy" referrerpolicy="no-referrer-when-downgrade" width="600" height="360"></iframe></div>
             <a class="btn btn-green" data-wa="Olá, KTEC Ijuí! Vim pelo site." data-cidade="Ijuí"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg> WhatsApp Ijuí</a>
@@ -370,16 +400,16 @@
           <article class="store reveal" aria-labelledby="loja-cruzalta">
             <h3 id="loja-cruzalta">KTEC Cruz Alta</h3>
             <ul class="contact-list">
-              <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pin"/></svg><div><b data-loja="enderecoCruzAlta"></b><span data-loja="cidadeCruzAlta"></span></div></li>
-              <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg><div><a data-wa="Olá, KTEC Cruz Alta! Vim pelo site." data-cidade="Cruz Alta"><b data-loja="whatsappCruzAltaExibicao"></b></a><span>WhatsApp Cruz Alta</span></div></li>
+              <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pin"/></svg><div><b data-loja="enderecoCruzAlta">Rua Pinheiro Machado, 686 · Centro</b><span data-loja="cidadeCruzAlta">Calçadão · Cruz Alta · RS</span></div></li>
+              <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg><div><a href="https://wa.me/555592013728" data-wa="Olá, KTEC Cruz Alta! Vim pelo site." data-cidade="Cruz Alta"><b data-loja="whatsappCruzAltaExibicao">(55) 9201-3728</b></a><span>WhatsApp Cruz Alta</span></div></li>
             </ul>
             <div class="map"><iframe data-mapa="Cruz Alta" title="Mapa da KTEC Celulares em Cruz Alta" loading="lazy" referrerpolicy="no-referrer-when-downgrade" width="600" height="360"></iframe></div>
             <a class="btn btn-green" data-wa="Olá, KTEC Cruz Alta! Vim pelo site." data-cidade="Cruz Alta"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg> WhatsApp Cruz Alta</a>
           </article>
         </div>
-        <a class="insta-strip reveal" data-insta target="_blank" rel="noopener">
+        <a class="insta-strip reveal" href="https://www.instagram.com/ktecijui/" data-insta target="_blank" rel="noopener">
           <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-insta"/></svg>
-          <span>Siga a KTEC no Instagram <b>@<span data-loja="instagram"></span></b></span>
+          <span>Siga a KTEC no Instagram <b>@<span data-loja="instagram">ktecijui</span></b></span>
           <span aria-hidden="true">→</span>
         </a>
       </div>
@@ -406,21 +436,21 @@
       <div>
         <h2 class="footer-h">Ijuí</h2>
         <ul class="footer-list">
-          <li data-loja="endereco"></li>
-          <li><a data-wa="Olá, KTEC Ijuí! Vim pelo site." data-cidade="Ijuí">WhatsApp <span data-loja="whatsappExibicao"></span></a></li>
+          <li data-loja="endereco">Rua Bento Gonçalves, 366 · Sala 8</li>
+          <li><a href="https://wa.me/555591461164" data-wa="Olá, KTEC Ijuí! Vim pelo site." data-cidade="Ijuí">WhatsApp <span data-loja="whatsappExibicao">(55) 9146-1164</span></a></li>
         </ul>
       </div>
       <div>
         <h2 class="footer-h">Cruz Alta</h2>
         <ul class="footer-list">
-          <li data-loja="enderecoCruzAlta"></li>
-          <li><a data-wa="Olá, KTEC Cruz Alta! Vim pelo site." data-cidade="Cruz Alta">WhatsApp <span data-loja="whatsappCruzAltaExibicao"></span></a></li>
-          <li><a data-insta target="_blank" rel="noopener">Instagram @<span data-loja="instagram"></span></a></li>
+          <li data-loja="enderecoCruzAlta">Rua Pinheiro Machado, 686 · Centro</li>
+          <li><a href="https://wa.me/555592013728" data-wa="Olá, KTEC Cruz Alta! Vim pelo site." data-cidade="Cruz Alta">WhatsApp <span data-loja="whatsappCruzAltaExibicao">(55) 9201-3728</span></a></li>
+          <li><a href="https://www.instagram.com/ktecijui/" data-insta target="_blank" rel="noopener">Instagram @<span data-loja="instagram">ktecijui</span></a></li>
         </ul>
       </div>
     </div>
     <div class="container footer-legal">
-      <p>© <span id="ano"></span> <span data-loja="razaoSocial"></span> · CNPJ <span data-loja="cnpj"></span> · Ijuí e Cruz Alta/RS</p>
+      <p>© <span id="ano">2026</span> <span data-loja="razaoSocial">KTEC Venda e Assistência Técnica Ltda</span> · CNPJ <span data-loja="cnpj">48.245.082/0001-60</span> · Ijuí e Cruz Alta/RS</p>
       <p>Apple, iPhone, AirPods e Apple Watch são marcas registradas da Apple Inc.</p>
     </div>
   </footer>
